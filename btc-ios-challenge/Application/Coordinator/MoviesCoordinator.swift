@@ -30,8 +30,7 @@ final class MoviesCoordinator: Coordinator {
     }
     
     private func pushMovieDetails(with movie: MovieResponse) {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .systemPink
-        navigationController.pushViewController(vc, animated: true)
+        let movieDetailsViewController = viewControllerProvider.getMovieDetailsController(movie: movie)
+        self.navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 }

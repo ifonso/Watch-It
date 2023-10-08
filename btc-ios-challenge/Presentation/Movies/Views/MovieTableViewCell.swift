@@ -12,7 +12,7 @@ final class MovieTableViewCell: UITableViewCell {
     
     static let identifier = String(describing: MovieTableViewCell.self)
     
-    private var viewModel: MovieListItemViewModel!
+    private var viewModel: MovieListItemDTO!
     private var posterImageRepository: PosterImageRepositoryType?
     private var imageLoadTask = Set<AnyCancellable>() {
         willSet { imageLoadTask.forEach({ $0.cancel() }) }
@@ -53,7 +53,7 @@ final class MovieTableViewCell: UITableViewCell {
     func config(with data: MovieResponse,
                 posterImageRepository: PosterImageRepositoryType
     ) {
-        let viewModel = MovieListItemViewModel(movie: data)
+        let viewModel = MovieListItemDTO(movie: data)
         
         self.viewModel = viewModel
         self.posterImageRepository = posterImageRepository

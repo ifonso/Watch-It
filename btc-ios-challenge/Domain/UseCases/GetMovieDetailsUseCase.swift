@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GetMovieDetailsUseCase {
+final class GetMovieDetailsUseCase: GetMovieDetailsUseCaseType {
     
     private let dataSource: MoviesDataSourceType
     

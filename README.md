@@ -20,11 +20,11 @@ Um aplicativo simples, com persistência local utilizando Core Data, que consome
     - [ ] Ao clicar em um ítem, deve ser apresentada a tela de detalhes (tela descrita abaixo);
 
 - A tela de detalhes deve apresentar os seguintes dados do filme:
-    - [ ] Poster;
+    - [x] Poster;
     - [ ] Botão para favoritar/desfavoritar;
-    - [ ] Título;
-    - [ ] Sinopse;
-    - [ ] Nota do filme;
-    - [ ] E os gêneros por extenso.
+    - [x] Título;
+    - [x] Sinopse;
+    - [x] Nota do filme;
+    - [x] E os gêneros por extenso.
 
 > É necessário fazer tratamento de erros e dos fluxos de exceção, como busca vazia, carregando e outros erros que possam ocorrer.

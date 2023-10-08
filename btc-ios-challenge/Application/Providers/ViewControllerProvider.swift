@@ -29,4 +29,12 @@ final class ViewControllerProvider {
             coordinator: coordinator)
         return moviesViewController
     }
+    
+    func getMovieDetailsController(movie: MovieResponse) -> UIViewController {
+        let movieDetailsUseCase = GetMovieDetailsUseCase(moviesDataSource: moviesDataSource)
+        let movieDetailsViewModel = MovieDetailsViewModel(movie: movie, movieDetailsUseCase: movieDetailsUseCase)
+        let movieDetailsViewController = MovieDetailsViewController.create(with: movieDetailsViewModel,
+                                                                           posterImageRepository: imageRepository)
+        return movieDetailsViewController
+    }
 }

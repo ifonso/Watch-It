@@ -1,5 +1,5 @@
 //
-//  MovieListItemViewModel.swift
+//  MovieListItemDTO.swift
 //  btc-ios-challenge
 //
 //  Created by Afonso Lucas on 28/09/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieListItemViewModel {
+struct MovieListItemDTO {
     
     let title: String
     let year: String
