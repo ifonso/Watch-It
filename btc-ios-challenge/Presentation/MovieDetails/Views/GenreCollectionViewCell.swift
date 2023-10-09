@@ -13,7 +13,7 @@ final class GenreCollectionViewCell: UICollectionViewCell {
     
     private lazy var genreTextView: UILabel = {
         var textView = UILabel()
-        textView.text = "Genre"
+        textView.text = ""
         return textView
     }()
     

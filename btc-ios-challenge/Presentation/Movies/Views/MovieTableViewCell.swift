@@ -39,6 +39,8 @@ final class MovieTableViewCell: UITableViewCell {
         let view = UIImageView()
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 4
+        view.backgroundColor = .systemGray
+        view.alpha = 0
         return view
     }()
 
@@ -66,7 +68,15 @@ final class MovieTableViewCell: UITableViewCell {
     
     private func setupPoster(url: String) {
         Task { @MainActor [weak self] in
-            self?.posterView.image = await self?.posterImageRepository?.loadImage(from: url)
+            defer {
+                UIView.animate(withDuration: 0.4) {
+                    self?.posterView.alpha = 1
+                }
+            }
+            guard let image = await self?.posterImageRepository?.loadImage(from: url) else {
+                return
+            }
+            self?.posterView.image = image
         }
         .store(in: &imageLoadTask)
     }

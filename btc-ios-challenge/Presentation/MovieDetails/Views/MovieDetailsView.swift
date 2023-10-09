@@ -27,6 +27,16 @@ final class MovieDetailsView: UIView {
         return collection
     }()
     
+    // MARK: Loading
+    private lazy var loadingView: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        activityIndicator.frame = .init(origin: .zero, size: CGSize(width: 56, height: 56))
+        activityIndicator.layer.zPosition = 100
+        return activityIndicator
+    }()
+    
     // MARK: Poster content
     private lazy var posterViewContainer: UIImageView = {
         let imageView = UIImageView()
@@ -62,14 +72,12 @@ final class MovieDetailsView: UIView {
     // MARK: Text Content
     private lazy var titleView: UILabel = {
         var label = UILabel()
-        label.text = "Movie Title"
         label.font = UIFont.preferredFont(forTextStyle: .title1)
         return label
     }()
     
     private lazy var overviewView: UILabel = {
         var label = UILabel()
-        label.text = "Movie overview."
         label.numberOfLines = 0
         label.font = UIFont.preferredFont(forTextStyle: .callout)
         return label
@@ -90,12 +98,24 @@ final class MovieDetailsView: UIView {
         overviewView.text = movie.overview
         ratingTextView.text = Double.ratingFormat(movie.rating)
         setupPoster(url: movie.posterImageUrlString)
+        
+        // Fade in
+        self.loadingView.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.contentView.alpha = 1
+        }
     }
     
     private func setupPoster(url: String) {
         Task { @MainActor [weak self] in
-            self?.posterViewContainer.image = await self?.posterImageRepository?.loadImage(from: url)
-            print("Done")
+            defer {
+                UIView.animate(withDuration: 1) {
+                    self?.posterViewContainer.alpha = 1
+                }
+            }
+            guard let image = await self?.posterImageRepository?.loadImage(from: url)
+            else { return }
+            self?.posterViewContainer.image = image
         }
         .store(in: &imageLoadTask)
     }
@@ -112,9 +132,15 @@ final class MovieDetailsView: UIView {
         contentView.addSubview(overviewView)
         scrollView.addSubview(contentView)
         addSubview(scrollView)
+        addSubview(loadingView)
+        
+        // Alpha for transition
+        posterViewContainer.alpha = 0
+        contentView.alpha = 0
     }
     
     private func setupConstraints() {
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
         posterViewContainer.translatesAutoresizingMaskIntoConstraints = false
         blurContainerView.translatesAutoresizingMaskIntoConstraints = false
         ratingIconView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,7 +194,11 @@ final class MovieDetailsView: UIView {
             overviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Sizes.System.large),
             overviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Sizes.System.large),
             overviewView.topAnchor.constraint(equalTo: genresCollection.bottomAnchor, constant: Sizes.System.small),
-            overviewView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Sizes.System.large)
+            overviewView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Sizes.System.large),
+            
+            // Loading
+            loadingView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     
