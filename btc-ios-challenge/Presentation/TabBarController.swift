@@ -38,7 +38,7 @@ final class TabBarController: UITabBarController {
         
         // MARK: - config tab bar
         self.tabBar.unselectedItemTintColor = .gray
-        self.tabBar.isTranslucent = false
+        self.tabBar.isTranslucent = true
         self.setViewControllers([moviesNavigationController, favoritesNavigationController],
                                 animated: false)
     }
