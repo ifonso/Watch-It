@@ -42,14 +42,12 @@ struct MovieDetailsResponse: Decodable, Identifiable {
     let id: Int
     let title: String
     let genres: [Genre]
-    let tagline: String
     let overview: String
     let poster: String
-    let runtime: Int
     let rating: Double
     
     enum CodingKeys: String, CodingKey {
-        case id, genres, overview, runtime, tagline, title
+        case id, genres, overview, title
         case poster = "poster_path"
         case rating = "vote_average"
     }

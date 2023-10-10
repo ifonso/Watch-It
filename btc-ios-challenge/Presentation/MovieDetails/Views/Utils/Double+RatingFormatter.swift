@@ -20,4 +20,12 @@ extension Double {
         
         return rating
     }
+    
+    static func parseRating(_ ratingString: String) -> Double {
+        let formattedString = ratingString.replacingOccurrences(of: ",", with: ".")
+        guard let rating = Double(formattedString)
+        else { return 0.0 }
+            
+        return rating
+    }
 }
