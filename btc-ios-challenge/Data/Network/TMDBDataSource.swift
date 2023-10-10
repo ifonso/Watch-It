@@ -20,7 +20,7 @@ final class TMDBDataSource: MoviesDataSourceType {
         self.decoder = JSONDecoder()
         
         guard let key = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else {
-            fatalError("No API_KEY provided on Info.plist")
+            preconditionFailure("No API_KEY provided on Info.plist")
         }
         
         self.API_KEY = key
