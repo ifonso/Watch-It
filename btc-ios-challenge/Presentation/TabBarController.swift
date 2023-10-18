@@ -12,6 +12,8 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // TODO: Fix unecessary coordinators
+        
         let defaultNetworkManager = NetworkManager()
         let viewControllerProvider = ViewControllerProvider(network: defaultNetworkManager)
 
@@ -28,13 +30,16 @@ final class TabBarController: UITabBarController {
         moviesCoordinator.start()
         
         // MARK: - Favoritos tab
-        let favoritesViewController = FavoritesViewController()
-        let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
+        let favoritesNavigationController = UINavigationController()
         
         favoritesNavigationController.navigationBar.prefersLargeTitles = false
         favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favoritos",
                                                                 image: UIImage(systemName: "star.fill"),
                                                                 tag: 2)
+        
+        let favoritesCoordinator = FavoritesCoordinator(provider: viewControllerProvider,
+                                                        rootNavigator: favoritesNavigationController)
+        favoritesCoordinator.start()
         
         // MARK: - config tab bar
         self.tabBar.unselectedItemTintColor = .gray

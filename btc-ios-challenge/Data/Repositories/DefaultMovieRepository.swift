@@ -12,6 +12,7 @@ enum LocalStorageErrors: Error {
     case saveError
     case deletionError
     case fetchError
+    case unknown
 }
 
 final class DefaultMovieRepository: LocalMovieRepositoryType {
@@ -29,7 +30,7 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
         context = container.viewContext
     }
     
-    func findAll() -> [MovieDetailsResponse] {
+    func findAll() throws -> [MovieDetailsResponse] {
         let result = getEntities()
         switch result {
         case .success(let movies):
@@ -51,8 +52,8 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
                 )
             }
 
-        case .failure(_):
-            return []
+        case .failure(let error):
+            throw error
         }
     }
     
@@ -67,7 +68,7 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
         }
     }
     
-    func save(movie data: MovieDetailsResponse) -> LocalStorageErrors? {
+    func save(movie data: MovieDetailsResponse) throws {
         let movie = Movie(context: context)
         movie.id = Int64(data.id)
         movie.title = data.title
@@ -76,26 +77,26 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
         movie.rating = Double.ratingFormat(data.rating)
         movie.poster = data.poster
         
-        if self.save() {
-            return nil
-        } else {
-            return .saveError
+        guard self.save() else {
+            throw LocalStorageErrors.saveError
         }
     }
     
-    func delete(id: Int) -> LocalStorageErrors? {
+    func delete(id: Int) throws {
         let result = getEntityBy(id: id)
         
         if case .failure(let error) = result {
-            return error
+            throw error
         }
         
         if case .success(let movieToDelete) = result {
-            guard let movie = movieToDelete else { return nil }
+            guard let movie = movieToDelete else { return }
             context.delete(movie)
         }
         
-        return self.save() ? nil : .deletionError
+        guard self.save() else {
+            throw LocalStorageErrors.deletionError
+        }
     }
     
     // MARK: - Core Data Utility

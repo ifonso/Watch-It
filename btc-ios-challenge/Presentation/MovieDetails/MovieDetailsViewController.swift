@@ -41,8 +41,17 @@ final class MovieDetailsViewController: UIViewController {
     private func setupDataBinding() {
         viewModel.$movieData
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] value in self?.didUpdateData() }
+            .sink { [weak self] _ in self?.didUpdateData() }
             .store(in: &cancellables)
+        
+        viewModel.$isFavoriteMovie
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] favoriteStatus in
+                self?.detailsView.changeSaveButtonIcon(isFavorite: favoriteStatus)
+            }
+            .store(in: &cancellables)
+        
+        detailsView.setSaveButtonAction(target: self, action: #selector(didTapActionButton))
     }
     
     private func didUpdateData() {
@@ -65,6 +74,19 @@ final class MovieDetailsViewController: UIViewController {
         detailsView.genresCollection.delegate = self
         detailsView.genresCollection.dataSource = self
         view = detailsView
+    }
+    
+    // MARK: Screen Actions
+    @objc
+    private func didTapActionButton() {
+        switch viewModel.isFavoriteMovie {
+        case true:
+            // if is favorite remove from it
+            viewModel.didTapRemove()
+        case false:
+            // else add to favorites
+            viewModel.didTapSave()
+        }
     }
 }
 

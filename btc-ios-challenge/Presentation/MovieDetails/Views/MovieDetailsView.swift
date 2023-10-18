@@ -44,10 +44,11 @@ final class MovieDetailsView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemGray
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private lazy var blurContainerView: UIVisualEffectView = {
+    private lazy var ratingBlurContainerView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
         var effectsView = UIVisualEffectView(effect: blurEffect)
         effectsView.clipsToBounds = true
@@ -69,6 +70,24 @@ final class MovieDetailsView: UIView {
         return label
     }()
     
+    private lazy var saveBlurContainerView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        var effectsView = UIVisualEffectView(effect: blurEffect)
+        effectsView.clipsToBounds = true
+        effectsView.layer.cornerRadius = 14
+        return effectsView
+    }()
+    
+    private lazy var saveButtonView: UIButton = {
+        let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .medium)
+        let image = UIImage(systemName: "plus", withConfiguration: config)
+        let button = UIButton(type: .custom)
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.alpha = 1.0
+        return button
+    }()
+    
     // MARK: Text Content
     private lazy var titleView: UILabel = {
         var label = UILabel()
@@ -87,6 +106,21 @@ final class MovieDetailsView: UIView {
         super.init(frame: frame)
         setupViews()
         setupConstraints()
+    }
+    
+    func setSaveButtonAction(target: Any, action: Selector) {
+        saveButtonView.addTarget(target, action: action, for: .touchUpInside)
+    }
+    
+    func changeSaveButtonIcon(isFavorite: Bool) {
+        let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .medium)
+        if isFavorite {
+            let image = UIImage(systemName: "xmark", withConfiguration: config)
+            saveButtonView.setImage(image, for: .normal)
+        } else {
+            let image = UIImage(systemName: "plus", withConfiguration: config)
+            saveButtonView.setImage(image, for: .normal)
+        }
     }
     
     func config(movie: MovieDetailsDTO,
@@ -122,9 +156,12 @@ final class MovieDetailsView: UIView {
     
     private func setupViews() {
         backgroundColor = .systemBackground
-        blurContainerView.contentView.addSubview(ratingIconView)
-        blurContainerView.contentView.addSubview(ratingTextView)
-        posterViewContainer.addSubview(blurContainerView)
+        ratingBlurContainerView.contentView.addSubview(ratingIconView)
+        ratingBlurContainerView.contentView.addSubview(ratingTextView)
+        saveBlurContainerView.contentView.addSubview(saveButtonView)
+        saveButtonView.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        posterViewContainer.addSubview(ratingBlurContainerView)
+        posterViewContainer.addSubview(saveBlurContainerView)
         // Containers
         contentView.addSubview(posterViewContainer)
         contentView.addSubview(titleView)
@@ -139,12 +176,26 @@ final class MovieDetailsView: UIView {
         contentView.alpha = 0
     }
     
+    @objc
+    private func buttonPressed() {
+        UIView.animate(withDuration: 0.1) {
+            self.saveButtonView.alpha = 0.1
+            
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) {
+                self.saveButtonView.alpha = 1
+            }
+        }
+    }
+    
     private func setupConstraints() {
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         posterViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        blurContainerView.translatesAutoresizingMaskIntoConstraints = false
+        ratingBlurContainerView.translatesAutoresizingMaskIntoConstraints = false
         ratingIconView.translatesAutoresizingMaskIntoConstraints = false
         ratingTextView.translatesAutoresizingMaskIntoConstraints = false
+        saveBlurContainerView.translatesAutoresizingMaskIntoConstraints = false
+        saveButtonView.translatesAutoresizingMaskIntoConstraints = false
         titleView.translatesAutoresizingMaskIntoConstraints = false
         genresCollection.translatesAutoresizingMaskIntoConstraints = false
         overviewView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,18 +221,28 @@ final class MovieDetailsView: UIView {
             posterViewContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Sizes.System.large),
             posterViewContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Sizes.System.large),
             
-            blurContainerView.contentView.leadingAnchor.constraint(equalTo: posterViewContainer.leadingAnchor,
-                                                                   constant: Sizes.System.medium),
-            blurContainerView.contentView.bottomAnchor.constraint(equalTo: posterViewContainer.bottomAnchor,
-                                                                  constant: -Sizes.System.medium),
-            blurContainerView.contentView.heightAnchor.constraint(equalToConstant: 42),
-            blurContainerView.contentView.widthAnchor.constraint(equalToConstant: 80),
+            ratingBlurContainerView.contentView.leadingAnchor.constraint(equalTo: posterViewContainer.leadingAnchor,
+                                                                         constant: Sizes.System.medium),
+            ratingBlurContainerView.contentView.bottomAnchor.constraint(equalTo: posterViewContainer.bottomAnchor,
+                                                                        constant: -Sizes.System.medium),
+            ratingBlurContainerView.contentView.heightAnchor.constraint(equalToConstant: Sizes.Components.movieRatingLabel.height),
+            ratingBlurContainerView.contentView.widthAnchor.constraint(equalToConstant: Sizes.Components.movieRatingLabel.width),
             
-            ratingIconView.centerYAnchor.constraint(equalTo: blurContainerView.contentView.centerYAnchor),
-            ratingIconView.leadingAnchor.constraint(equalTo: blurContainerView.contentView.leadingAnchor, constant: 12),
+            ratingIconView.centerYAnchor.constraint(equalTo: ratingBlurContainerView.contentView.centerYAnchor),
+            ratingIconView.leadingAnchor.constraint(equalTo: ratingBlurContainerView.contentView.leadingAnchor, constant: 12),
             
-            ratingTextView.centerYAnchor.constraint(equalTo: blurContainerView.contentView.centerYAnchor),
+            ratingTextView.centerYAnchor.constraint(equalTo: ratingBlurContainerView.contentView.centerYAnchor),
             ratingTextView.leadingAnchor.constraint(equalTo: ratingIconView.trailingAnchor, constant: Sizes.System.small),
+            
+            saveBlurContainerView.contentView.trailingAnchor.constraint(equalTo: posterViewContainer.trailingAnchor,
+                                                                        constant: -Sizes.System.medium),
+            saveBlurContainerView.contentView.bottomAnchor.constraint(equalTo: posterViewContainer.bottomAnchor,
+                                                                      constant: -Sizes.System.medium),
+            saveBlurContainerView.contentView.heightAnchor.constraint(equalToConstant: Sizes.Components.saveMovieButton.height),
+            saveBlurContainerView.contentView.widthAnchor.constraint(equalToConstant: Sizes.Components.saveMovieButton.width),
+            
+            saveButtonView.centerXAnchor.constraint(equalTo: saveBlurContainerView.centerXAnchor),
+            saveButtonView.centerYAnchor.constraint(equalTo: saveBlurContainerView.centerYAnchor),
             // Text
             titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Sizes.System.large),
             titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Sizes.System.large),

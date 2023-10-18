@@ -10,8 +10,8 @@ import Foundation
 protocol LocalMovieRepositoryType {
     
     func isFavorite(id: Int) -> Bool
-    func findAll() -> [MovieDetailsResponse]
+    func findAll() throws -> [MovieDetailsResponse]
     
-    func save(movie data: MovieDetailsResponse) -> LocalStorageErrors?
-    func delete(id: Int) -> LocalStorageErrors?
+    func save(movie data: MovieDetailsResponse) throws
+    func delete(id: Int) throws
 }

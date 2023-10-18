@@ -17,6 +17,8 @@ enum Sizes {
     enum Components {
         static let poster: CGSize = CGSize(width: 66, height: 100)
         static let movieCell: CGSize = CGSize(width: .zero, height: 132)
+        static let movieRatingLabel: CGSize = CGSize(width: 80, height: 42)
+        static let saveMovieButton: CGSize = CGSize(width: 42, height: 42)
     }
     
     enum Text {
