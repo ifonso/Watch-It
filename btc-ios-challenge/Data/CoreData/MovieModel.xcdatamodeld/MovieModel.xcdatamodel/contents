@@ -7,5 +7,6 @@
         <attribute name="rating" optional="YES" attributeType="String"/>
         <attribute name="synopsis" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
     </entity>
 </model>

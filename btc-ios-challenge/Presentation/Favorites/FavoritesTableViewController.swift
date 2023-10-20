@@ -66,11 +66,7 @@ extension FavoritesTableViewController {
             style: .default,
             reuseIdentifier: MovieTableViewCell.identifier)
         
-        // TODO: Fix data model
-        let movie = viewModel.movies[indexPath.row]
-        let data = MovieResponse(id: movie.id, title: movie.title, year: "2001", poster: movie.poster)
-        
-        cell.config(with: data, posterImageRepository: posterImageRepository)
+        cell.config(with: viewModel.movies[indexPath.row], posterImageRepository: posterImageRepository)
         
         return cell
     }

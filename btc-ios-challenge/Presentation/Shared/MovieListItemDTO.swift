@@ -14,13 +14,21 @@ struct MovieListItemDTO {
     
     init(movie: MovieResponse) {
         self.title = movie.title
-        
-        if let release = getDateFrom(movie.year) {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy"
-            self.year = formatter.string(from: release)
-        } else {
-            self.year = "2023"
-        }
+        self.year = format(data: movie.year)
     }
+    
+    init(movie: MovieDetailsResponse) {
+        self.title = movie.title
+        self.year = format(data: movie.year)
+    }
+}
+
+private func format(data: String) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy"
+    
+    guard let release = getDateFrom(data)
+    else { return "2023"}
+    
+    return formatter.string(from: release)
 }

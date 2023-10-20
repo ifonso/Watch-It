@@ -45,11 +45,13 @@ struct MovieDetailsResponse: Decodable, Identifiable {
     let overview: String
     let poster: String
     let rating: Double
+    let year: String
     
     enum CodingKeys: String, CodingKey {
         case id, genres, overview, title
         case poster = "poster_path"
         case rating = "vote_average"
+        case year = "release_date"
     }
     
     func getPosterUrlString(size p: Poster) -> String {
@@ -57,7 +59,6 @@ struct MovieDetailsResponse: Decodable, Identifiable {
     }
 }
 
-struct Genre: Decodable, Identifiable {
-    let id: Int
+struct Genre: Decodable {
     let name: String
 }

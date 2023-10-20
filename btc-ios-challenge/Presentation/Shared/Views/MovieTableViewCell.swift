@@ -55,15 +55,24 @@ final class MovieTableViewCell: UITableViewCell {
     func config(with data: MovieResponse,
                 posterImageRepository: PosterImageRepositoryType
     ) {
-        let viewModel = MovieListItemDTO(movie: data)
-        
-        self.viewModel = viewModel
+        self.viewModel = MovieListItemDTO(movie: data)
         self.posterImageRepository = posterImageRepository
-        
+        setupConfig(poster: data.getPosterUrlString(size: .medium))
+    }
+    
+    func config(with data: MovieDetailsResponse,
+                posterImageRepository: PosterImageRepositoryType
+    ) {
+        self.viewModel = MovieListItemDTO(movie: data)
+        self.posterImageRepository = posterImageRepository
+        setupConfig(poster: data.getPosterUrlString(size: .medium))
+    }
+    
+    private func setupConfig(poster: String) {
         posterView.image = nil
         titleView.text = viewModel.title
         yearView.text = viewModel.year
-        setupPoster(url: data.getPosterUrlString(size: .medium))
+        setupPoster(url: poster)
     }
     
     private func setupPoster(url: String) {

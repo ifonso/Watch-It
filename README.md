@@ -15,13 +15,13 @@ Um aplicativo simples, com persistência local utilizando Core Data, que consome
     - [ ] Search bar para pesquisar filmes por nome;
 
 - A tela de favoritos deverá conter:
-    - [ ] A lista de favoritos persistidos no app entre sessões;
+    - [x] A lista de favoritos persistidos no app entre sessões;
     - [ ] Search bar para pesquisar favoritos por nome e ano;
     - [ ] Ao clicar em um ítem, deve ser apresentada a tela de detalhes (tela descrita abaixo);
 
 - A tela de detalhes deve apresentar os seguintes dados do filme:
     - [x] Poster;
-    - [ ] Botão para favoritar/desfavoritar;
+    - [x] Botão para favoritar/desfavoritar;
     - [x] Título;
     - [x] Sinopse;
     - [x] Nota do filme;

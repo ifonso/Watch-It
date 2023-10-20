@@ -39,16 +39,18 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
                       let genres = movie.genres,
                       let synopsis = movie.synopsis,
                       let poster = movie.poster,
-                      let rating = movie.rating
+                      let rating = movie.rating,
+                      let year = movie.year
                 else { return nil }
                 
                 return MovieDetailsResponse(
                     id: Int(movie.id),
                     title: title,
-                    genres: genres.map { g in Genre(id: 0, name: g) },
+                    genres: genres.map { .init(name: $0) },
                     overview: synopsis,
                     poster: poster,
-                    rating: Double.parseRating(rating)
+                    rating: Double.parseRating(rating),
+                    year: year
                 )
             }
 
@@ -76,6 +78,7 @@ final class DefaultMovieRepository: LocalMovieRepositoryType {
         movie.genres = data.genres.map { $0.name }
         movie.rating = Double.ratingFormat(data.rating)
         movie.poster = data.poster
+        movie.year = data.year
         
         guard self.save() else {
             throw LocalStorageErrors.saveError
