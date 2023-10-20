@@ -92,6 +92,6 @@ extension MoviesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.sendScreenEvent(with: .movieTapped(viewModel.popularMoviesList[indexPath.row]))
+        coordinator?.sendScreenEvent(with: .movieTapped(viewModel.popularMoviesList[indexPath.row]), self)
     }
 }

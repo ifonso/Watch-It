@@ -17,9 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let tabBarController = TabBarController()
         
-        window.rootViewController = tabBarController
+        let defaultNetworkManager = NetworkManager()
+        let viewControllerProvider = ViewControllerProvider(network: defaultNetworkManager)
+        let appCoordinator = AppCoordinator(window: window, provider: viewControllerProvider)
+        
+        appCoordinator.start()
+        
         window.makeKeyAndVisible()
         
         self.window = window

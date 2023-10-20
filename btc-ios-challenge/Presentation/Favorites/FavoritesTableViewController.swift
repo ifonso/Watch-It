@@ -72,7 +72,11 @@ extension FavoritesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedMovie = viewModel.movies[indexPath.row]
+        let movie = MovieResponse(id: selectedMovie.id,
+                                  title: selectedMovie.title,
+                                  year: selectedMovie.year,
+                                  poster: selectedMovie.poster)
+        coordinator?.sendScreenEvent(with: .movieTapped(movie), self)
     }
 }
-

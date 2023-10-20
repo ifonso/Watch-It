@@ -12,10 +12,8 @@ enum Events {
 }
 
 protocol Coordinator: AnyObject {
-    var navigationController: UINavigationController { get set }
-    
     func start()
-    func sendScreenEvent(with: Events)
+    func sendScreenEvent(with: Events, _ sender: UIViewController)
 }
 
 protocol Coordinating where Self: UIViewController {
