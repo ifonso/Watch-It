@@ -14,6 +14,9 @@ final class GenreCollectionViewCell: UICollectionViewCell {
     private lazy var genreTextView: UILabel = {
         var textView = UILabel()
         textView.text = ""
+        // Custom
+        textView.font = .smallTags
+        textView.textColor = .secondaryText
         return textView
     }()
     
@@ -30,7 +33,7 @@ final class GenreCollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         addSubview(genreTextView)
         // setup self
-        backgroundColor = .gray
+        backgroundColor = .backgroudSecondary
         clipsToBounds = true
         layer.cornerRadius = 12
     }

@@ -91,14 +91,18 @@ final class MovieDetailsView: UIView {
     // MARK: Text Content
     private lazy var titleView: UILabel = {
         var label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        // Custom Text
+        label.numberOfLines = 0
+        label.font = UIFont.movieBigTitle
+        label.textColor = .primaryText
         return label
     }()
     
     private lazy var overviewView: UILabel = {
         var label = UILabel()
+        // Custom Text
         label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        label.font = UIFont.overviewText
         return label
     }()
     
@@ -129,7 +133,11 @@ final class MovieDetailsView: UIView {
         self.posterImageRepository = posterImageRepository
         
         titleView.text = movie.title
+        titleView.setLineSpacing(with: 3)
+        
         overviewView.text = movie.overview
+        overviewView.setLineSpacing(with: 2)
+        
         ratingTextView.text = Double.ratingFormat(movie.rating)
         setupPoster(url: movie.posterImageUrlString)
         
@@ -155,7 +163,7 @@ final class MovieDetailsView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .systemBackground
+        backgroundColor = .backgroud
         ratingBlurContainerView.contentView.addSubview(ratingIconView)
         ratingBlurContainerView.contentView.addSubview(ratingTextView)
         saveBlurContainerView.contentView.addSubview(saveButtonView)

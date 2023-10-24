@@ -56,6 +56,9 @@
 		788901172AD3260000C32AEC /* Double+RatingFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788901162AD3260000C32AEC /* Double+RatingFormatter.swift */; };
 		78BE14D82AD1A7820026A32F /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BE14D72AD1A7820026A32F /* MovieDetailsViewController.swift */; };
 		78BE14DA2AD1A7F20026A32F /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BE14D92AD1A7F20026A32F /* MovieDetailsView.swift */; };
+		78D3D8152AE8557B005BC70B /* UIFont+FontStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3D8142AE8557B005BC70B /* UIFont+FontStyles.swift */; };
+		78D3D8172AE8585B005BC70B /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3D8162AE8585B005BC70B /* UIColor+Colors.swift */; };
+		78D3D8192AE85A95005BC70B /* UILable+LineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D3D8182AE85A95005BC70B /* UILable+LineHeight.swift */; };
 		78E16EF32AE21ABF00DEB2A2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E16EF22AE21ABF00DEB2A2 /* AppCoordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +114,9 @@
 		78B5F88C2ACF955800798207 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		78BE14D72AD1A7820026A32F /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		78BE14D92AD1A7F20026A32F /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
+		78D3D8142AE8557B005BC70B /* UIFont+FontStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontStyles.swift"; sourceTree = "<group>"; };
+		78D3D8162AE8585B005BC70B /* UIColor+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
+		78D3D8182AE85A95005BC70B /* UILable+LineHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILable+LineHeight.swift"; sourceTree = "<group>"; };
 		78E16EF22AE21ABF00DEB2A2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -342,10 +348,12 @@
 		7880684A2AC5ADA5005D6A1B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				78D3D8132AE8555E005BC70B /* Labels */,
 				788068512AC5B1CA005D6A1B /* Extensions */,
 				7880684D2AC5ADDA005D6A1B /* Sizes.swift */,
 				785B428F2AC5EFC2002E3F1F /* PosterSize.swift */,
 				785B42972AC61953002E3F1F /* DateFormatter.swift */,
+				78D3D8162AE8585B005BC70B /* UIColor+Colors.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -439,6 +447,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		78D3D8132AE8555E005BC70B /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				78D3D8142AE8557B005BC70B /* UIFont+FontStyles.swift */,
+				78D3D8182AE85A95005BC70B /* UILable+LineHeight.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -526,7 +543,9 @@
 				785B42922AC5F1DC002E3F1F /* MoviesTableViewController.swift in Sources */,
 				78873A892AC9D06B00766D37 /* GetPopularMoviesUseCase.swift in Sources */,
 				78873A902AC9D8D300766D37 /* Task+Cancellable.swift in Sources */,
+				78D3D8172AE8585B005BC70B /* UIColor+Colors.swift in Sources */,
 				7837A8AA2AD981D500E805B1 /* FavoritesViewModel.swift in Sources */,
+				78D3D8192AE85A95005BC70B /* UILable+LineHeight.swift in Sources */,
 				788068352AC4A553005D6A1B /* Coordinator.swift in Sources */,
 				788068372AC4A5C1005D6A1B /* ViewControllerProvider.swift in Sources */,
 				785A96CD2ADF540800385E50 /* DeleteMovieFromFavoritesUseCaseType.swift in Sources */,
@@ -556,6 +575,7 @@
 				785B42882AC5EDF9002E3F1F /* MoviesViewModel.swift in Sources */,
 				788068402AC4AE9E005D6A1B /* NetworkManager.swift in Sources */,
 				7880681B2AC4A2D0005D6A1B /* SceneDelegate.swift in Sources */,
+				78D3D8152AE8557B005BC70B /* UIFont+FontStyles.swift in Sources */,
 				78365B182AD0434900A5FC91 /* GetMovieDetailsUseCaseType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
