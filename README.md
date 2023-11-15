@@ -1,8 +1,12 @@
 # WatchIt
 
-- Minha tentativa de implementar o [desafio BTG](https://github.com/btgpactualdigitaldev/iOS-challenge-BTG#desafio-btg-ios) para dev iOS.
+> Minha tentativa de implementar o [desafio BTG](https://github.com/btgpactualdigitaldev/iOS-challenge-BTG#desafio-btg-ios) para dev iOS.
 
 Um aplicativo simples, com persistência local utilizando Core Data, que consome a API do The Movie Database.
+
+<p align="center">
+    <img src="./Preview/preview_gif.gif" alt="animated" width="400"/>
+</p>
 
 ## Features
 
@@ -28,3 +32,16 @@ Um aplicativo simples, com persistência local utilizando Core Data, que consome
     - [x] E os gêneros por extenso.
 
 > É necessário fazer tratamento de erros e dos fluxos de exceção, como busca vazia, carregando e outros erros que possam ocorrer.
+
+## Compilado o Projeto
+
+Para iniciar o projeto no simulador ou dispositivo, você irá precisar de uma chave para usar a API do TMDB. Para adicionar a chave ao projeto você precisa criar um arquivo de configuração na raiz do projeto chamado de `Secrets`:
+
+![Secrets](./Preview/Config.png)
+
+Dentro do arquivo você adiciona a sua chave de API:
+```Swift
+//  Secrets.xcconfig
+
+API_KEY = your_api_key_goes_here
+```
